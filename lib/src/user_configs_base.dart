@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart' as path_provider;
 
 class UserConfigs {
   final String _configName;
@@ -21,8 +20,7 @@ class UserConfigs {
     } else if (Platform.isLinux || Platform.isMacOS) {
       _userHome = Platform.environment['HOME']!;
     } else {
-      final directory = await path_provider.getApplicationDocumentsDirectory();
-      _userHome = directory.path;
+      throw UnsupportedError('Unsupported');
     }
     _configFile = File(path.join(_userHome, '.config', _configName, 'config.json'));
     if (_configFile.existsSync()) {
